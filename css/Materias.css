@@ -1,0 +1,107 @@
+/* Materias.css
+   Estilos para páginas de matérias e conteúdos.
+   Estrutura limpa para ser aplicada em seções de lista, cards e navegação.
+*/
+
+/* Estrutura de base para toda a área de matérias */
+.materias-container {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 28px;
+}
+
+.section-title {
+    font-size: clamp(2rem, 2.5vw, 2.6rem);
+    color: #0f2840;
+    margin-bottom: 14px;
+}
+
+.section-subtitle {
+    color: #385374;
+    margin-bottom: 26px;
+    max-width: 760px;
+}
+
+/* Grade de cards de matéria */
+.materias-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.materia-card {
+    background: #ffffff;
+    border: 1px solid rgba(15, 40, 64, 0.08);
+    border-radius: 24px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.materia-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 22px 48px rgba(15, 40, 64, 0.08);
+}
+
+.materia-card__titulo {
+    font-size: 1.3rem;
+    color: #0f2840;
+    margin-bottom: 12px;
+}
+
+.materia-card__descricao {
+    color: #5a738f;
+    flex-grow: 1;
+    line-height: 1.7;
+    margin-bottom: 18px;
+}
+
+.materia-card__acao {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border-radius: 16px;
+    background: #1f73ff;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.materia-card__acao:hover {
+    background: #0d57c7;
+}
+
+/* Destaque especial em amarelo */
+.destaque {
+    background: #fff9e6;
+    border-left: 4px solid #ffbe25;
+    padding: 18px 22px;
+    border-radius: 18px;
+    margin-bottom: 24px;
+    color: #374052;
+}
+
+/* Responsividade para matérias */
+@media (max-width: 900px) {
+    .materias-container {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 620px) {
+    .materias-container {
+        padding: 16px;
+    }
+
+    .materia-card {
+        padding: 20px;
+    }
+
+    .materia-card__titulo {
+        font-size: 1.15rem;
+    }
+}

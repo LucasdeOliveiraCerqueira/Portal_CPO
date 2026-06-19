@@ -1,0 +1,179 @@
+<!-- materias/Exemplo.html
+     EXEMPLO DE COMO UMA MATÉRIA COM CONTEÚDO FICARÁ ESTRUTURADA
+     Este arquivo simula a estrutura visual que será gerada dinamicamente
+     quando um usuário clica em uma matéria no Home
+-->
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplo - Matéria Estruturada</title>
+    <link rel="stylesheet" href="../css/home.css">
+    <link rel="stylesheet" href="../botoes_reutilizaveis/botoes_reutilizaveis.css">
+</head>
+<body>
+    <!-- SIMULA O CONTEÚDO DINÂMICO QUE SERÁ RENDERIZADO -->
+    <div class="page-container" style="max-width: 1120px; margin: 0 auto; padding: 24px;">
+
+        <!-- BOTÃO VOLTAR -->
+        <div class="btn-container-top">
+            <button class="btn-voltar" onclick="history.back()">← Voltar para Matérias</button>
+        </div>
+
+        <!-- CABEÇALHO DA MATÉRIA -->
+        <div class="content-header">
+            <h1>Matemática</h1>
+            <p>Explore seções, capítulos e conteúdos estruturados para aprender com facilidade</p>
+        </div>
+
+        <!-- GRID DE SEÇÕES -->
+        <div class="cards-grid">
+
+            <!-- SEÇÃO 1: ÁLGEBRA -->
+            <div class="card">
+                <div class="card-icon">📐</div>
+                <div class="card-title">Álgebra</div>
+                <div style="font-size: 0.9rem; color: #5a738f; margin-top: 8px; text-align: left;">
+                    <strong>Capítulos:</strong>
+                    <ul style="margin: 8px 0; padding-left: 16px;">
+                        <li>Equações do 1º Grau</li>
+                        <li>Equações do 2º Grau</li>
+                        <li>Sistemas Lineares</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- SEÇÃO 2: GEOMETRIA -->
+            <div class="card">
+                <div class="card-icon">📏</div>
+                <div class="card-title">Geometria</div>
+                <div style="font-size: 0.9rem; color: #5a738f; margin-top: 8px; text-align: left;">
+                    <strong>Capítulos:</strong>
+                    <ul style="margin: 8px 0; padding-left: 16px;">
+                        <li>Triângulos</li>
+                        <li>Quadriláteros</li>
+                        <li>Círculos</li>
+                        <li>Sólidos Geométricos</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- SEÇÃO 3: TRIGONOMETRIA -->
+            <div class="card">
+                <div class="card-icon">〰️</div>
+                <div class="card-title">Trigonometria</div>
+                <div style="font-size: 0.9rem; color: #5a738f; margin-top: 8px; text-align: left;">
+                    <strong>Capítulos:</strong>
+                    <ul style="margin: 8px 0; padding-left: 16px;">
+                        <li>Seno, Cosseno e Tangente</li>
+                        <li>Identidades Trigonométricas</li>
+                        <li>Aplicações</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- SEÇÃO 4: ESTATÍSTICA -->
+            <div class="card">
+                <div class="card-icon">📊</div>
+                <div class="card-title">Estatística</div>
+                <div style="font-size: 0.9rem; color: #5a738f; margin-top: 8px; text-align: left;">
+                    <strong>Capítulos:</strong>
+                    <ul style="margin: 8px 0; padding-left: 16px;">
+                        <li>Média, Mediana e Moda</li>
+                        <li>Desvio Padrão</li>
+                        <li>Análise de Dados</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- SEÇÃO EXPLICATIVA -->
+        <div style="background: #fff8e6; border-left: 4px solid #ffbe25; padding: 20px; border-radius: 12px; margin-top: 30px;">
+            <h3 style="color: #0f2840; margin-bottom: 10px;">📌 Como Funciona</h3>
+            <ul style="color: #5a738f; line-height: 1.8;">
+                <li><strong>Seções</strong> organizam o conteúdo em grandes tópicos (ex: Álgebra, Geometria)</li>
+                <li><strong>Capítulos</strong> subdividem as seções em aulas específicas</li>
+                <li><strong>Conteúdos</strong> dentro de capítulos podem ser: textos, vídeos, PDFs, exercícios</li>
+                <li>Toda essa estrutura é <strong>gerenciada pelo banco de dados</strong> (Supabase)</li>
+                <li><strong>Nenhum arquivo HTML</strong> precisa ser criado para adicionar matérias</li>
+            </ul>
+        </div>
+
+        <!-- FLUXO DE NAVEGAÇÃO -->
+        <div style="margin-top: 30px; padding: 20px; background: #e8f2ff; border-radius: 12px;">
+            <h3 style="color: #0f2840; margin-bottom: 15px;">🔄 Fluxo de Navegação Esperado</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                <div style="background: white; padding: 15px; border-radius: 8px; border-left: 3px solid #1f73ff;">
+                    <strong>1. Home</strong>
+                    <p style="font-size: 0.9rem; color: #5a738f;">Usuário vê todas as matérias</p>
+                </div>
+                <div style="background: white; padding: 15px; border-radius: 8px; border-left: 3px solid #1f73ff;">
+                    <strong>2. Clica em Matéria</strong>
+                    <p style="font-size: 0.9rem; color: #5a738f;">Vê seções e capítulos</p>
+                </div>
+                <div style="background: white; padding: 15px; border-radius: 8px; border-left: 3px solid #1f73ff;">
+                    <strong>3. Clica em Seção</strong>
+                    <p style="font-size: 0.9rem; color: #5a738f;">Abre capítulos dentro dela</p>
+                </div>
+                <div style="background: white; padding: 15px; border-radius: 8px; border-left: 3px solid #1f73ff;">
+                    <strong>4. Clica em Capítulo</strong>
+                    <p style="font-size: 0.9rem; color: #5a738f;">Visualiza conteúdo final</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- EXEMPLO DE COMO SERÁ UM CONTEÚDO -->
+        <div style="margin-top: 30px; padding: 20px; background: #f0f4ff; border-radius: 12px;">
+            <h3 style="color: #0f2840; margin-bottom: 15px;">📖 Exemplo: Um Conteúdo Aberto</h3>
+            <p style="color: #5a738f;">Quando o usuário clica em um capítulo, vê algo assim:</p>
+            
+            <div style="background: white; padding: 20px; border-radius: 8px; margin-top: 15px;">
+                <h4 style="color: #0f2840;">Equações do 1º Grau</h4>
+                <p style="color: #5a738f; line-height: 1.8; margin: 15px 0;">
+                    Uma equação do 1º grau é uma igualdade que contém uma variável (incógnita) com expoente 1.
+                    A forma geral é: <strong>ax + b = 0</strong>
+                </p>
+                
+                <div style="background: #fff8e6; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <strong>Exemplo:</strong><br>
+                    2x + 4 = 10<br>
+                    2x = 6<br>
+                    x = 3
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px;">
+                    <button class="btn-primario" style="cursor: pointer; padding: 12px;">📥 Baixar Material</button>
+                    <button class="btn-primario" style="cursor: pointer; padding: 12px;">✅ Fazer Exercício</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRÓXIMAS FASES -->
+        <div style="margin-top: 30px; padding: 20px; background: #f0f4ff; border-radius: 12px; border-left: 4px solid #1f73ff;">
+            <h3 style="color: #0f2840; margin-bottom: 10px;">🚀 Próximas Implementações</h3>
+            <ul style="color: #5a738f;">
+                <li>✅ Navegação entre seções, capítulos e conteúdos</li>
+                <li>⏳ Visualização de vídeos, PDFs, slides</li>
+                <li>⏳ Sistema de exercícios e simulados</li>
+                <li>⏳ Marcação de favoritos e progresso</li>
+                <li>⏳ Búsca e filtros de conteúdo</li>
+                <li>⏳ Painel administrativo para gerenciar tudo</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(180deg, #e8f2ff 0%, #ffffff 55%, #fff9e6 100%);
+            color: #0f2840;
+        }
+        ul { list-style: none; }
+        ul li:before { content: "→ "; margin-right: 8px; color: #1f73ff; font-weight: bold; }
+    </style>
+</body>
+</html>

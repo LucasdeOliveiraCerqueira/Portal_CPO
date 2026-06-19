@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Portal CPO</title>
+    <link rel="stylesheet" href="css/Home.css">
+    <style>
+        .admin-container {
+            padding: 20px;
+        }
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 15px;
+        }
+        .admin-header h1 {
+            margin: 0;
+            color: #1f2937;
+        }
+        .admin-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .admin-tab {
+            padding: 12px 20px;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: #5a738f;
+            transition: all 0.3s;
+        }
+        .admin-tab.ativo {
+            color: #1f75ff;
+            border-bottom-color: #1f75ff;
+        }
+        .admin-tab:hover {
+            color: #1f75ff;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.ativo {
+            display: block;
+        }
+        .usuarios-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .usuarios-table thead {
+            background: #f3f4f6;
+        }
+        .usuarios-table th {
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            color: #1f2937;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .usuarios-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #4b5563;
+        }
+        .usuarios-table tr:hover {
+            background: #f9fafb;
+        }
+        .role-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .role-admin {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+        .role-professor {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        .role-aluno {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+        .btn-small {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            background: #1f75ff;
+            color: white;
+        }
+        .btn-small:hover {
+            background: #1a5dcc;
+        }
+        .btn-small.danger {
+            background: #ef4444;
+        }
+        .btn-small.danger:hover {
+            background: #dc2626;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            max-width: 400px;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal.ativo {
+            display: flex;
+        }
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        .modal-header {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #1f2937;
+        }
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+        .btn-modal {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .btn-modal.primary {
+            background: #1f75ff;
+            color: white;
+        }
+        .btn-modal.primary:hover {
+            background: #1a5dcc;
+        }
+        .btn-modal.secondary {
+            background: #e2e8f0;
+            color: #1f2937;
+        }
+        .btn-modal.secondary:hover {
+            background: #cbd5e1;
+        }
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #5a738f;
+        }
+        .spinner {
+            border: 3px solid #e2e8f0;
+            border-top: 3px solid #1f75ff;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="top-bar__left">
+                <span class="brand">Portal CPO - Admin</span>
+            </div>
+            <div class="top-bar__right">
+                <div class="perfil-menu-container">
+                    <button class="perfil-icon" onclick="togglePerfilMenu()">👤</button>
+                    <div id="perfilMenu" class="perfil-menu">
+                        <a href="Home.html">← Voltar</a>
+                        <a href="#" onclick="fazerLogout()">Sair</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Content -->
+        <div class="admin-container">
+            <div class="admin-header">
+                <h1>Painel de Administrador</h1>
+            </div>
+
+            <div class="admin-tabs">
+                <button class="admin-tab ativo" onclick="abrirAbaAdmin('usuarios')">👥 Usuários</button>
+                <button class="admin-tab" onclick="abrirAbaAdmin('professores')">👨‍🏫 Professores</button>
+                <button class="admin-tab" onclick="abrirAbaAdmin('materias')">📚 Matérias</button>
+            </div>
+
+            <!-- Aba Usuários -->
+            <div id="usuarios" class="tab-content ativo">
+                <div style="margin-bottom: 20px;">
+                    <button class="btn-small" onclick="abrirModalNovoUsuario()" style="background: #10b981;">+ Novo Usuário</button>
+                </div>
+                <div id="usuarios-loading" class="loading">
+                    <div class="spinner"></div>
+                    <p>Carregando usuários...</p>
+                </div>
+                <table id="usuarios-table" class="usuarios-table" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Nome</th>
+                            <th>Role</th>
+                            <th>Criado em</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usuarios-tbody">
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Aba Professores -->
+            <div id="professores" class="tab-content">
+                <div style="margin-bottom: 20px;">
+                    <button class="btn-small" onclick="abrirModalAtribuirProfessor()" style="background: #10b981;">+ Atribuir Professor</button>
+                </div>
+                <div id="professores-loading" class="loading">
+                    <div class="spinner"></div>
+                    <p>Carregando professores...</p>
+                </div>
+                <table id="professores-table" class="usuarios-table" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>Professor</th>
+                            <th>Matéria</th>
+                            <th>Atribuído em</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="professores-tbody">
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Aba Matérias -->
+            <div id="materias" class="tab-content">
+                <div style="margin-bottom: 20px;">
+                    <button class="btn-small" onclick="abrirModalNovaMateria()" style="background: #10b981;">+ Nova Matéria</button>
+                </div>
+                <div id="materias-loading" class="loading">
+                    <div class="spinner"></div>
+                    <p>Carregando matérias...</p>
+                </div>
+                <table id="materias-table" class="usuarios-table" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Ícone</th>
+                            <th>Criada em</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="materias-tbody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Editar Usuário -->
+    <div id="modalUsuario" class="modal">
+        <div class="modal-content">
+            <div class="modal-header" id="modalUsuarioTitle">Editar Usuário</div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="modalUsuarioEmail" readonly style="background: #f3f4f6;">
+            </div>
+            <div class="form-group">
+                <label>Nome</label>
+                <input type="text" id="modalUsuarioNome" placeholder="Nome do usuário">
+            </div>
+            <div class="form-group">
+                <label>Role</label>
+                <select id="modalUsuarioRole">
+                    <option value="aluno">Aluno</option>
+                    <option value="professor">Professor</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-modal secondary" onclick="fecharModalUsuario()">Cancelar</button>
+                <button class="btn-modal primary" onclick="salvarUsuario()">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Atribuir Professor -->
+    <div id="modalProfessor" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">Atribuir Professor à Matéria</div>
+            <div class="form-group">
+                <label>Professor</label>
+                <select id="modalProfessorUsuario">
+                    <option value="">Selecione um professor...</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Matéria</label>
+                <select id="modalProfessorMateria">
+                    <option value="">Selecione uma matéria...</option>
+                </select>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-modal secondary" onclick="fecharModalProfessor()">Cancelar</button>
+                <button class="btn-modal primary" onclick="salvarProfessor()">Atribuir</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Nova Matéria -->
+    <div id="modalMateria" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">Nova Matéria</div>
+            <div class="form-group">
+                <label>Nome da Matéria</label>
+                <input type="text" id="modalMateriaNome" placeholder="Ex: Matemática">
+            </div>
+            <div class="form-group">
+                <label>Ícone</label>
+                <input type="text" id="modalMateriaIcone" placeholder="Ex: 📐">
+            </div>
+            <div class="modal-actions">
+                <button class="btn-modal secondary" onclick="fecharModalMateria()">Cancelar</button>
+                <button class="btn-modal primary" onclick="salvarMateria()">Criar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Supabase Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Configuração Supabase -->
+    <script src="js/config.js"></script>
+    
+    <!-- Admin Script -->
+    <script src="js/admin.js"></script>
+</body>
+</html>

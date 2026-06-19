@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecionando...</title>
+    <style>
+        body {
+            margin: 0;
+            display: grid;
+            place-items: center;
+            height: 100vh;
+            background: #f8fafc;
+            font-family: Arial, sans-serif;
+        }
+        p { color: #666; }
+    </style>
+</head>
+<body>
+    <div style="text-align: center;">
+        <p>Redirecionando...</p>
+    </div>
+    <script>
+        // Callback de autenticação (confirmação de email desativada em desenvolvimento)
+        // Se chegar aqui, redireciona para Home se autenticado, ou Login caso contrário
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 500);
+    </script>
+</body>
+</html>
