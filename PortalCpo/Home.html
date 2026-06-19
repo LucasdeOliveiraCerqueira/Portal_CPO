@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Portal CPO</title>
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="botoes_reutilizaveis/botoes_reutilizaveis.css">
+</head>
+<body>
+    <div class="home-wrapper">
+
+        <!-- BARRA SUPERIOR COM PERFIL -->
+        <div class="top-bar">
+            <div class="home-brand">Portal CPO</div>
+            <div class="top-actions">
+                <span id="usuario-nome"></span>
+                <div class="perfil-icon" onclick="togglePerfilMenu()">👤</div>
+                <div class="perfil-menu" id="perfilMenu">
+                    <a href="javascript:abrirPerfil()">Meu Perfil</a>
+                    <a href="javascript:fazerLogout()">Sair</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- SIDEBAR COM OPÇÕES -->
+        <aside class="sidebar">
+            <div class="sidebar-item ativo" onclick="mostrarSecao('materias', this)">
+                📚 Matérias
+            </div>
+            <div class="sidebar-item" onclick="mostrarSecao('downloads', this)">
+                ⬇️ Meus Downloads
+            </div>
+            <div class="sidebar-item" onclick="mostrarSecao('favoritos', this)">
+                ⭐ Favoritos
+            </div>
+            <hr style="margin: 10px 0; border: none; border-top: 1px solid rgba(0,0,0,0.1);">
+            <div id="admin-item" class="sidebar-item" onclick="window.location.href='Admin.html'" style="display: none; color: #dc2626; font-weight: bold;">
+                🔧 Admin
+            </div>
+            <div class="sidebar-item" onclick="abrirPerfil()">
+                ⚙️ Configurações
+            </div>
+        </aside>
+
+        <!-- CONTEÚDO PRINCIPAL -->
+        <main class="main-content">
+
+            <!-- CONTAINER PARA CONTEÚDO DINÂMICO -->
+            <div id="conteudo-dinamico">
+
+                <!-- SEÇÃO MATÉRIAS -->
+                <section id="materias" class="secao" style="display: block;">
+                    <div class="content-header">
+                        <h1>Matérias</h1>
+                        <p>Escolha uma matéria para começar a estudar</p>
+                    </div>
+
+                    <!-- GRID DE CARDS - CARREGADO DO SUPABASE -->
+                    <div class="cards-grid" id="grid-materias">
+                        <!-- Cards carregados dinamicamente -->
+                    </div>
+                </section>
+
+                <!-- SEÇÃO DOWNLOADS (PLACEHOLDER) -->
+                <section id="downloads" class="secao" style="display: none;">
+                    <div class="content-header">
+                        <h1>Meus Downloads</h1>
+                        <p>Arquivos que você baixou para estudar offline</p>
+                    </div>
+                    <p style="color: #5a738f; padding: 20px; text-align: center;">Nenhum arquivo baixado ainda.</p>
+                </section>
+
+                <!-- SEÇÃO FAVORITOS (PLACEHOLDER) -->
+                <section id="favoritos" class="secao" style="display: none;">
+                    <div class="content-header">
+                        <h1>Favoritos</h1>
+                        <p>Conteúdos que você marcou como favorito</p>
+                    </div>
+                    <p style="color: #5a738f; padding: 20px; text-align: center;">Nenhum favorito ainda.</p>
+                </section>
+
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Supabase Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Configuração Supabase -->
+    <script src="js/config.js"></script>
+
+    <!-- Validações e funções comuns -->
+    <script src="js/Validacoes.js"></script>
+    
+    <!-- Lógica Home -->
+    <script src="js/home.js"></script>
+</body>
+</html>
+
