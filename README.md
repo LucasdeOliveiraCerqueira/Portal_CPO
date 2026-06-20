@@ -125,6 +125,7 @@ PortalCpo/js/config.js
 - Melhor tratamento de erros
 - Melhorias na interface
 - Refatoração da organização do JavaScript
+- melhorar css
 
 ---
 
