@@ -17,13 +17,16 @@ Atualmente o sistema possui:
 - ✅ Integração com banco de dados
 - ✅ Persistência de informações
 - ✅ Telas principais do portal
-- ✅ Estrutura inicial do painel administrativo
+- ✅ Painel administrativo funcional, incluindo promoção de usuários a administrador
 
-### Limitação conhecida
+### Correção recente: promoção de usuários a administrador
 
-No estado atual do projeto, **a funcionalidade de promoção de usuários para administrador ainda não está funcionando corretamente**.
+A funcionalidade de promoção de usuários a administrador apresentava falhas e já foi corrigida. Causas identificadas:
 
-Foram identificados arquivos de configuração e scripts SQL destinados a esse recurso, porém o fluxo completo ainda necessita de ajustes para funcionar conforme esperado.
+1. A função `handle_new_user` (trigger executado na criação de conta) usava um campo inexistente do Supabase Auth, o que fazia com que alguns usuários fossem criados em `auth.users` sem o perfil correspondente em `public.profiles`.
+2. A tabela `public.profiles` possui Row Level Security (RLS) ativado, mas não havia policy de `SELECT`, impedindo que o próprio usuário lesse seu `role` — por isso o menu de administrador não era exibido mesmo após a promoção.
+
+Ambos os pontos foram corrigidos via script SQL (trigger ajustado para usar `raw_user_meta_data` e policy de SELECT adicionada em `profiles`).
 
 ---
 
@@ -67,7 +70,7 @@ PortalCpo/
 - Perfil de usuário
 - Navegação entre páginas
 - Integração com Supabase
-- Estrutura para painel administrativo
+- Painel administrativo (gerenciamento de usuários, professores e matérias)
 
 ---
 
@@ -114,16 +117,9 @@ PortalCpo/js/config.js
 
 ---
 
-## Problemas conhecidos
-
-- Não é possível promover usuários para administrador pelo fluxo atual da aplicação.
-- O módulo administrativo ainda está em desenvolvimento.
-
----
-
 ## Melhorias planejadas
 
-- Correção do gerenciamento de administradores
+- Revisão das policies de RLS (SELECT/UPDATE/DELETE) em todas as tabelas administrativas
 - Painel administrativo completo
 - Melhor controle de permissões
 - Melhor tratamento de erros
